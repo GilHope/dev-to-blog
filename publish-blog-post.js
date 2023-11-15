@@ -24,3 +24,21 @@ blogPostFiles.forEach((filename) => {
     // Publish or update the post on Dev.to based on the result of the check
     checkAndPublishToDevTo(blogPostTitle, blogPostContent);
 });
+
+
+// Function to check if post already exists on Dev.to and publish/update it
+async function checkAndPublishToDevTo(title, content) {
+    try {
+        // Use the Dev.to API to check if a post with the given title exists
+        
+        if (postExists) {
+            await updateDevToArticle(existingDevToArticleId, title, content);
+        } else {
+            //implement logic to create new post
+            await createDevToArticle(title, content);
+        }
+    } catch (error) {
+        console.error('Error publishing to Dev.to:', error.message);
+        throw error;
+    }
+}
