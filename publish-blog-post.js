@@ -48,7 +48,7 @@ async function checkAndPublishToDevTo(title, content) {
 async function createDevToArticle(title, content) {
     try {
         const response = await axios.post(
-            devToApitEndpoint,
+            devToApiEndpoint,
             {
                 article: {
                     title,
@@ -86,7 +86,7 @@ async function updateDevToArticle(articleId, title, content) {
 
 // // Function to generate a title for a blog
 function generateTitle(filename) {
-    return filename.replace('.md', '').replace(/-/g, ' '); // Replaces dashes with spaces
-  }
-  
+  return filename.replace('.md', '').replace(/-/g, ' '); // Replaces dashes with spaces
+}
+
   
