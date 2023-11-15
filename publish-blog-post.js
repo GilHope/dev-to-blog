@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const blogsDirectory = 'blogs';
-const devToApiEndpoint = ////////////////////////////
-const devToApiKey = /////////////////////////////////
+const devToApiEndpoint = 'application/vnd.forem.api-v1+json';
+const devToApiKey = process.env.DEVTO_API_KEY;
 
 // Get a list of all files in 'blogs'
 const blogPostFiles = fs.readdirSync(blogsDirectory);
