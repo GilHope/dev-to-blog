@@ -85,5 +85,8 @@ async function updateDevToArticle(articleId, title, content) {
 
 
 // // Function to generate a title for a blog
-// function generateTitle(filename) {
-// }
+function generateTitle(filename) {
+    return filename.replace('.md', '').replace(/-/g, ' '); // Replaces dashes with spaces
+  }
+  
+  
