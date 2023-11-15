@@ -42,3 +42,32 @@ async function checkAndPublishToDevTo(title, content) {
         throw error;
     }
 }
+
+
+// Function to create a new Dev.to article
+async function createDevToArticle(title, content) {
+    try {
+        const response = await axios.post(
+            devToApitEndpoint,
+            {
+                article: {
+                    title,
+                    body_markdown: content,
+                    published: true,
+                    tags: ['test-dev.to', 'test-blog', 'test-tags'],
+                },
+            },
+            {
+                headers: {
+                    'api-key': devToApiKey,
+                },
+            }
+        );
+
+        const devToArticleUrl = response.data.url;
+        console.log('Published to Dev.to: ${devToArticleUrl}');
+    } catch (error) {
+        console.error('Error publishing to Dev.to:', error.message);
+        throw error;
+    }
+}
