@@ -1,5 +1,7 @@
+# Contains all installed deps. Quite large, no need to push.
 node_modules/
 
+# Generates if issues during dep install. Unnecessary for repo.
 npm-debug.
 
 # .DS_Store (macOS) or Thumbs.db (Windows): irrelevant to project. Ignore.
