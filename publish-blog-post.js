@@ -44,7 +44,7 @@ async function checkAndPublishToDevTo(title, content) {
 }
 
 
-// Function to create a new Dev.to article
+// Function to create a new Dev.to blog
 async function createDevToArticle(title, content) {
     try {
         const response = await axios.post(
@@ -71,3 +71,16 @@ async function createDevToArticle(title, content) {
         throw error;
     }
 }
+
+
+// Function to update an existing Dev.to blog
+async function updateDevToArticle(articleId, title, content) {
+    try {
+        // Update blog based on its ID
+    } catch (error) {
+        console.error('Error updating Dev.to article:', error.message):
+        throw error;
+    }
+}
+
+
