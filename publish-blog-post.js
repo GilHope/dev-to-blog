@@ -73,7 +73,9 @@ async function createDevToArticle(title, content) {
 // Function to check if a post with a given title already exists on Dev.to
 async function postExists(title) {
     let page = 1;
-    while (true) {
+    const maxPages = 5;
+
+    while (page <= maxPages) {
         console.log(`Checking page ${page} for existing post`);
         const response = await axios.get(`${devToApiEndpoint}?page=${page}`, {
             headers: { 'api-key': devToApiKey }
@@ -87,7 +89,7 @@ async function postExists(title) {
             return existingArticle.id;
         }
 
-        if (articles.length === 0) {
+        if (articles.length === 0 || page === maxPages) {
             break;
         }
 
@@ -95,7 +97,6 @@ async function postExists(title) {
     }
     return null;
 }
-
 
 
 // Function to update an existing Dev.to blog
@@ -125,7 +126,6 @@ async function updateDevToArticle(articleId, title, content) {
         throw error;
     }
 }
-
 
 
 // Function to check if post already exists on Dev.to and publish/update it
