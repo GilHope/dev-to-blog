@@ -1,5 +1,4 @@
 # Dev.to Blog Automation
 
-Automate blogs to be posted to dev.to
+Automate my notes to be formatted into markdown files and be posted as blogs posts on dev.to
 
-SOmething
