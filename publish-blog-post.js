@@ -74,10 +74,12 @@ async function createDevToArticle(title, content) {
 async function postExists(title) {
     let page = 1;
     while (true) {
+        console.log(`Checking page ${page} for existing post`);
         const response = await axios.get(`${devToApiEndpoint}?page=${page}`, {
             headers: { 'api-key': devToApiKey }
         });
 
+        console.log(`Looking for title: ${title} in articles`);
         const articles = response.data;
         const existingArticle = articles.find(article => article.title === title);
         
@@ -98,6 +100,7 @@ async function postExists(title) {
 
 // Function to update an existing Dev.to blog
 async function updateDevToArticle(articleId, title, content) {
+    console.log(`Updating article with ID: ${articleId}`);
     try {
         const response = await axios.patch(
             `${devToApiEndpoint}/${articleId}`,
