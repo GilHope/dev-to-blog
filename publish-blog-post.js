@@ -96,9 +96,16 @@ async function createDevToArticle(title, content) {
 // }
 
 
-// // Function to generate a title for a blog
+// Function to generate a title for a blog
 function generateTitle(filename) {
-  return filename.replace('.md', '').replace(/-/g, ' '); // Replaces dashes with spaces
+    // Remove the '.md' extension and replace dashes with spaces
+    let title = filename.replace('.md', '').replace(/-/g, ' ');
+
+    // Split the title into words, capitalize each word, and join them back together
+    return title.split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
 }
+
 
   
