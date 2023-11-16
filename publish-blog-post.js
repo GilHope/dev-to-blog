@@ -67,8 +67,21 @@ async function createDevToArticle(title, content) {
 
 // Function to check if a post with a given title already exists on Dev.to
 async function postExists(title) {
-    // ... (implementation of postExists function as shown earlier)
+    try {
+        const response = await axios.get(devToApiEndpoint, {
+            headers: { 'api-key': devToApiKey }
+        });
+
+        const articles = response.data;
+        const existingArticle = articles.find(article => article.title === title);
+
+        return existingArticle ? existingArticle.id : null;
+    } catch (error) {
+        console.error('Error checking if post exists:', error.message);
+        throw error;
+    }
 }
+
 
 
 // Function to update an existing Dev.to blog
