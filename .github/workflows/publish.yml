@@ -23,3 +23,5 @@ jobs:
 
       - name: Run Automation Script
         run: node publish-blog-post.js
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
