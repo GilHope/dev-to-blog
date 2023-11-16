@@ -7,3 +7,6 @@ npm-debug.
 # .DS_Store (macOS) or Thumbs.db (Windows): irrelevant to project. Ignore.
 .DS_Store
 Thumbs.db
+
+# Not necessary. For local testing.
+output.txt
