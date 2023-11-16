@@ -29,26 +29,6 @@ blogPostFiles.forEach((filename) => {
 });
 
 
-// Function to check if post already exists on Dev.to and publish/update it
-async function checkAndPublishToDevTo(title, content) {
-    try {
-        // Use the Dev.to API to check if a post with the given title exists
-        
-        await createDevToArticle(title, content); // uncomment section immediately below after intial first publish is successsfuly
-
-        // if (postExists) {
-        //     await updateDevToArticle(existingDevToArticleId, title, content);
-        // } else {
-        //     //implement logic to create new post
-        //     await createDevToArticle(title, content);
-        // }
-    } catch (error) {
-        console.error('Error publishing to Dev.to:', error.message);
-        throw error;
-    }
-}
-
-
 // Function to create a new Dev.to blog
 async function createDevToArticle(title, content) {
     const articleData = {
@@ -85,15 +65,38 @@ async function createDevToArticle(title, content) {
 }
 
 
-// // Function to update an existing Dev.to blog
-// async function updateDevToArticle(articleId, title, content) {
-//     try {
-//         // Update blog based on its ID
-//     } catch (error) {
-//         console.error('Error updating Dev.to blog:', error.message);
-//         throw error;
-//     }
-// }
+// Function to check if a post with a given title already exists on Dev.to
+async function postExists(title) {
+    // ... (implementation of postExists function as shown earlier)
+}
+
+
+// Function to update an existing Dev.to blog
+async function updateDevToArticle(articleId, title, content) {
+    try {
+        // Update blog based on its ID
+    } catch (error) {
+        console.error('Error updating Dev.to blog:', error.message);
+        throw error;
+    }
+}
+
+
+// Function to check if post already exists on Dev.to and publish/update it
+async function checkAndPublishToDevTo(title, content) {
+    try {
+        const existingArticleId = await postExists(title);
+
+        if (existingArticleId) {
+            await updateDevToArticle(existingArticleId, title, content);
+        } else {
+            await createDevToArticle(title, content);
+        }
+    } catch (error) {
+        console.error('Error publishing to Dev.to:', error.message);
+        throw error;
+    }
+}
 
 
 // Function to generate a title for a blog
