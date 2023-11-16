@@ -2,8 +2,6 @@
 
 AWS Lambda is a powerful and versatile service offered by Amazon Web Services (AWS). In this comprehensive guide, we will explore various aspects of AWS Lambda, from its core concepts to advanced features.
 
-TEST TEST TEST
-
 ## Understanding AWS Lambda
 
 ### Lambda as a FaaS Product
