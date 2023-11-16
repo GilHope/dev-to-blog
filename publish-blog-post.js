@@ -6,27 +6,32 @@ const blogsDirectory = 'blogs';
 const devToApiEndpoint = 'https://dev.to/api/articles';
 const devToApiKey = process.env.DEVTO_API_KEY;
 
-// Get a list of all files in 'blogs'
-const blogPostFiles = fs.readdirSync(blogsDirectory);
-console.log("Found blog files:", blogPostFiles); // Log the files found
+// Function to process each blog file
+async function processBlogFiles() {
+    // Get a list of all files in 'blogs'
+    const blogPostFiles = fs.readdirSync(blogsDirectory);
+    console.log("Found blog files:", blogPostFiles); // Log the files found
 
-// Process each blog file
-blogPostFiles.forEach((filename) => {
-    // Construct full path to blog markdown files
-    const filePath = path.join(blogsDirectory, filename);
+    // Process each blog file
+    for (const filename of blogPostFiles) {
+        // Construct full path to blog markdown files
+        const filePath = path.join(blogsDirectory, filename);
 
-    // Read content of markdown file
-    const blogPostContent = fs.readFileSync(filePath, 'utf8');
-    console.log(`Content of ${filename}:`, blogPostContent); // Temporarily log content
+        // Read content of markdown file
+        const blogPostContent = fs.readFileSync(filePath, 'utf8');
+        console.log(`Content of ${filename}:`, blogPostContent); // Temporarily log content
 
+        // Define the title of the blog post based on the filename or other criteria
+        const blogPostTitle = generateTitle(filename);
 
-    // Define the title of the blog post based on the filename or other criteria
-    const blogPostTitle = generateTitle(filename);
+        // Check if the post already exists on Dev.to (by title or other criteria)
+        // Publish or update the post on Dev.to based on the result of the check
+        await checkAndPublishToDevTo(blogPostTitle, blogPostContent);
+    }
+}
 
-    // Check if the post already exists on Dev.to (by title or other criteria)
-    // Publish or update the post on Dev.to based on the result of the check
-    checkAndPublishToDevTo(blogPostTitle, blogPostContent);
-});
+// Call the processBlogFiles function and catch any errors
+processBlogFiles().catch(console.error);
 
 
 // Function to create a new Dev.to blog
@@ -67,19 +72,26 @@ async function createDevToArticle(title, content) {
 
 // Function to check if a post with a given title already exists on Dev.to
 async function postExists(title) {
-    try {
-        const response = await axios.get(devToApiEndpoint, {
+    let page = 1;
+    while (true) {
+        const response = await axios.get(`${devToApiEndpoint}?page=${page}`, {
             headers: { 'api-key': devToApiKey }
         });
 
         const articles = response.data;
         const existingArticle = articles.find(article => article.title === title);
+        
+        if (existingArticle) {
+            return existingArticle.id;
+        }
 
-        return existingArticle ? existingArticle.id : null;
-    } catch (error) {
-        console.error('Error checking if post exists:', error.message);
-        throw error;
+        if (articles.length === 0) {
+            break;
+        }
+
+        page++;
     }
+    return null;
 }
 
 
