@@ -87,12 +87,30 @@ async function postExists(title) {
 // Function to update an existing Dev.to blog
 async function updateDevToArticle(articleId, title, content) {
     try {
-        // Update blog based on its ID
+        const response = await axios.patch(
+            `${devToApiEndpoint}/${articleId}`,
+            {
+                article: {
+                    title,
+                    body_markdown: content,
+                    // include any other fields you wish to update
+                }
+            },
+            {
+                headers: {
+                    'api-key': devToApiKey,
+                    'Content-Type': 'application/json'
+                }
+            }
+        );
+
+        console.log(`Updated article on Dev.to: ${response.data.url}`);
     } catch (error) {
         console.error('Error updating Dev.to blog:', error.message);
         throw error;
     }
 }
+
 
 
 // Function to check if post already exists on Dev.to and publish/update it
