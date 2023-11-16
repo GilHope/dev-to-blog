@@ -51,17 +51,21 @@ async function checkAndPublishToDevTo(title, content) {
 
 // Function to create a new Dev.to blog
 async function createDevToArticle(title, content) {
+    const articleData = {
+        article: {
+            title,
+            body_markdown: content,
+            published: true,
+            tags: ['test-dev.to', 'test-blog', 'test-tags'],
+        },
+    };
+
+    console.log("Sending the following data to Dev.to:", JSON.stringify(articleData, null, 2));
+
     try {
         const response = await axios.post(
             devToApiEndpoint,
-            {
-                article: {
-                    title,
-                    body_markdown: content,
-                    published: true,
-                    tags: ['test-dev.to', 'test-blog', 'test-tags'],
-                },
-            },
+            articleData, // use the variable directly here
             {
                 headers: {
                     'api-key': devToApiKey,
@@ -74,7 +78,8 @@ async function createDevToArticle(title, content) {
         const devToArticleUrl = response.data.url;
         console.log(`Published to Dev.to: ${devToArticleUrl}`);
     } catch (error) {
-        console.error('Error publishing to Dev.to:', error.message);
+        console.error('Error publishing to Dev.to:', error.response ? error.response.data : error.message);
+        console.error('Full error object:', error);
         throw error;
     }
 }
