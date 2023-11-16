@@ -3,11 +3,12 @@ const fs = require('fs');
 const path = require('path');
 
 const blogsDirectory = 'blogs';
-const devToApiEndpoint = 'application/vnd.forem.api-v1+json';
+const devToApiEndpoint = 'https://dev.to/api/articles';
 const devToApiKey = process.env.DEVTO_API_KEY;
 
 // Get a list of all files in 'blogs'
 const blogPostFiles = fs.readdirSync(blogsDirectory);
+console.log("Found blog files:", blogPostFiles); // Log the files found
 
 // Process each blog file
 blogPostFiles.forEach((filename) => {
@@ -16,6 +17,8 @@ blogPostFiles.forEach((filename) => {
 
     // Read content of markdown file
     const blogPostContent = fs.readFileSync(filePath, 'utf8');
+    console.log(`Content of ${filename}:`, blogPostContent); // Temporarily log content
+
 
     // Define the title of the blog post based on the filename or other criteria
     const blogPostTitle = generateTitle(filename);
@@ -31,12 +34,14 @@ async function checkAndPublishToDevTo(title, content) {
     try {
         // Use the Dev.to API to check if a post with the given title exists
         
-        if (postExists) {
-            await updateDevToArticle(existingDevToArticleId, title, content);
-        } else {
-            //implement logic to create new post
-            await createDevToArticle(title, content);
-        }
+        await createDevToArticle(title, content); // uncomment section immediately below after intial first publish is successsfuly
+
+        // if (postExists) {
+        //     await updateDevToArticle(existingDevToArticleId, title, content);
+        // } else {
+        //     //implement logic to create new post
+        //     await createDevToArticle(title, content);
+        // }
     } catch (error) {
         console.error('Error publishing to Dev.to:', error.message);
         throw error;
@@ -60,12 +65,14 @@ async function createDevToArticle(title, content) {
             {
                 headers: {
                     'api-key': devToApiKey,
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/vnd.forem.api-v1+json'
                 },
             }
         );
 
         const devToArticleUrl = response.data.url;
-        console.log('Published to Dev.to: ${devToArticleUrl}');
+        console.log(`Published to Dev.to: ${devToArticleUrl}`);
     } catch (error) {
         console.error('Error publishing to Dev.to:', error.message);
         throw error;
@@ -73,15 +80,15 @@ async function createDevToArticle(title, content) {
 }
 
 
-// Function to update an existing Dev.to blog
-async function updateDevToArticle(articleId, title, content) {
-    try {
-        // Update blog based on its ID
-    } catch (error) {
-        console.error('Error updating Dev.to article:', error.message):
-        throw error;
-    }
-}
+// // Function to update an existing Dev.to blog
+// async function updateDevToArticle(articleId, title, content) {
+//     try {
+//         // Update blog based on its ID
+//     } catch (error) {
+//         console.error('Error updating Dev.to blog:', error.message);
+//         throw error;
+//     }
+// }
 
 
 // // Function to generate a title for a blog
