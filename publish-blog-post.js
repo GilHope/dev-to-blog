@@ -56,7 +56,7 @@ async function createDevToArticle(title, content) {
             title,
             body_markdown: content,
             published: true,
-            tags: ['test-dev.to', 'test-blog', 'test-tags'],
+            tags: ['test', 'testblog', 'testtags'],
         },
     };
 
