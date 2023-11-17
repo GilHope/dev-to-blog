@@ -155,3 +155,20 @@ function generateTitle(filename) {
                 .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                 .join(' ');
 } 
+
+
+// Functions to Read and Write the Mapping File
+const mappingFilePath = './devToArticleMap.json';
+
+function readArticleMap() {
+    if (fs.existsSync(mappingFilePath)) {
+        return JSON.parse(fs.readFileSync(mappingFilePath, 'utf8'));
+    }
+    return {};
+}
+
+function updateArticleMap(filename, articleId) {
+    const map = readArticleMap();
+    map[filename] = articleId;
+    fs.writeFileSync(mappingFilePath, JSON.stringify(map, null, 2));
+}
