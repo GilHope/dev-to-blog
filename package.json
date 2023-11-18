@@ -2,7 +2,7 @@
   "name": "dev-to-blog",
   "version": "1.0.0",
   "description": "Automate blogs to be posted to dev.to",
-  "main": "publish-blog-post.js",
+  "main": "blog-publisher.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
