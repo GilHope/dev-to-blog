@@ -129,20 +129,18 @@ async function updateDevToArticle(articleId, title, content) {
 
 
 // Function to check if post already exists on Dev.to and publish/update it
-async function checkAndPublishToDevTo(title, content) {
-    try {
-        const existingArticleId = await postExists(title);
+async function checkAndPublishToDevTo(filename, content) {
+    const map = readArticleMap();
+    const articleId = map[filename];
 
-        if (existingArticleId) {
-            await updateDevToArticle(existingArticleId, title, content);
-        } else {
-            await createDevToArticle(title, content);
-        }
-    } catch (error) {
-        console.error('Error publishing to Dev.to:', error.message);
-        throw error;
+    if (articleId) {
+        await updateDevToArticle(articleId, generateTitle(filename), content);
+    } else {
+        const newArticleId = await createDevToArticle(generateTitle(filename), content);
+        updateArticleMap(filename, newArticleId);
     }
 }
+
 
 
 // Function to generate a title for a blog
