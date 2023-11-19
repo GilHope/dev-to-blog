@@ -1,4 +1,4 @@
-name: Publish Blog Post
+name: Blog Post Publisher
 
 on:
   push:
