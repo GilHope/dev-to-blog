@@ -1,7 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const fetch = require('node-fetch');
-const frontMatter = require('front-matter');
+import fs from 'fs';
+import path from 'path';
+import fetch from 'node-fetch';
+import frontMatter from 'front-matter';
+
 
 const DEV_TO_API_KEY = process.env.DEVTO_API_KEY; // Set this in your GitHub Actions secrets
 const BLOGS_DIR = './blogs'; // Path to your blogs directory
