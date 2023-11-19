@@ -1,3 +1,7 @@
+---
+title: "DynamoDB and Lambda Triggers"
+---
+
 # Understanding DynamoDB Streams and Lambda Triggers
 
 ## Introduction to DynamoDB Streams

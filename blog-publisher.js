@@ -14,7 +14,7 @@ function getMarkdownFiles(dir) {
 }
 
 // Function to publish or update an article on dev.to
-async function publishOrUpdateArticle(articleContent, articleId = null) {
+async function publishOrUpdateArticle(articleContent, title, articleId = null) {
     const url = `https://dev.to/api/articles${articleId ? `/${articleId}` : ''}`;
     const method = articleId ? 'PUT' : 'POST';
 
@@ -25,7 +25,7 @@ async function publishOrUpdateArticle(articleContent, articleId = null) {
                 'Content-Type': 'application/json',
                 'api-key': DEV_TO_API_KEY
             },
-            body: JSON.stringify({ article: { body_markdown: articleContent } })
+            body: JSON.stringify({ article: { title: title, body_markdown: articleContent } })
         });
 
         const data = await response.json();
@@ -48,13 +48,18 @@ async function processMarkdownFiles() {
         const content = fs.readFileSync(filePath, 'utf8');
         const { attributes, body } = frontMatter(content);
 
+        const title = attributes.title; // Extract title from front matter
+        if (!title) {
+            console.error(`Missing title in ${file}`);
+            continue; // Skip this file if there is no title
+        }
+
         // Check if the article is new or needs an update
-        // This assumes you have a way to track published articles
-        const isUpdatedArticle = false; // You need to implement this check
-        const articleId = null; // You need to retrieve this if it's an updated article
+        const isUpdatedArticle = false; // Implement your logic to check this
+        const articleId = null; // Implement your logic to retrieve this if updating
 
         // Publish or update the article on dev.to
-        const result = await publishOrUpdateArticle(body, isUpdatedArticle ? articleId : null);
+        const result = await publishOrUpdateArticle(body, title, isUpdatedArticle ? articleId : null);
         console.log('Article processed:', result);
     }
 }
