@@ -19,11 +19,9 @@ jobs:
           node-version: 14
 
       - name: Install Dependencies
-        # run: npm install
         run: npm install node-fetch front-matter
 
       - name: Run Automation Script
-        # run: node publish-blog-post.js
         run: node blog-publisher.js
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
