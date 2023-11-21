@@ -1,29 +1,29 @@
-name: Blog Post Publisher
+# name: Blog Post Publisher
 
-on:
-  push:
-    branches:
-       - master
+# on:
+#   push:
+#     branches:
+#        - master
 
-jobs:
-  publish:
-    runs-on: ubuntu-latest
+# jobs:
+#   publish:
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: 14
 
-      - name: Install Dependencies
-        # run: npm install
-        run: npm install node-fetch front-matter
+#       - name: Install Dependencies
+#         # run: npm install
+#         run: npm install node-fetch front-matter
 
-      - name: Run Automation Script
-        # run: node publish-blog-post.js
-        run: node blog-publisher.js
-        env:
-          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+#       - name: Run Automation Script
+#         # run: node publish-blog-post.js
+#         run: node blog-publisher.js
+#         env:
+#           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
