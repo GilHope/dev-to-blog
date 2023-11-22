@@ -1,5 +1,7 @@
 // blogPublisher.js
 
+import fs from 'fs';
+import path from 'path'; 
 import { getMarkdownFiles, checkIfArticleExists } from './blogUtils.js';
 import frontMatter from 'front-matter';
 
