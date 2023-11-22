@@ -22,10 +22,14 @@ export async function checkIfArticleExists(title, apiKey) {
         });
         const articles = await response.json();
 
-        // Check if any article title matches the provided title
-        return articles.some(article => article.title === title);
+        // Find an article with the matching title
+        const foundArticle = articles.find(article => article.title === title);
+        console.log(`Found article for title '${title}':`, foundArticle);
+
+        // Return the article ID if found, otherwise return null
+        return foundArticle ? foundArticle.id : null;
     } catch (error) {
         console.error('Error checking if article exists:', error);
-        return false;
+        return null;
     }
 }
