@@ -7,13 +7,15 @@ import frontMatter from 'front-matter';
 import fetch from 'node-fetch';
 
 const DEV_TO_API_KEY = process.env.DEVTO_API_KEY;
-const BLOGS_DIR = './blogs';
+const BLOGS_DIR = './blogs'; 
 
+// Updates an existing article on Dev.to.
 async function updateExistingArticle(articleId, title, content) {
     console.log(`Attempting to update article: ${title} with ID: ${articleId}`);
     const url = `https://dev.to/api/articles/${articleId}`;
 
     try {
+        // Sending a PUT request to Dev.to API to update the article
         const response = await fetch(url, {
             method: 'PUT',
             headers: {
@@ -29,9 +31,11 @@ async function updateExistingArticle(articleId, title, content) {
             })
         });
 
+        // Parsing the JSON response
         const data = await response.json();
         console.log('API Response:', data);
 
+        // Checking if the request was successful
         if (!response.ok) {
             throw new Error(`API Request Failed: ${response.status} ${response.statusText}`);
         }
@@ -42,9 +46,12 @@ async function updateExistingArticle(articleId, title, content) {
     }
 }
 
+// Processes markdown files for updates and applies them to existing articles on Dev.to.
 async function processUpdatedMarkdownFiles() {
+    // Retrieving all Markdown files from the specified directory
     const markdownFiles = getMarkdownFiles(BLOGS_DIR);
 
+    // Iterating over each Markdown file
     for (const file of markdownFiles) {
         const filePath = path.join(BLOGS_DIR, file);
         const content = fs.readFileSync(filePath, 'utf8');
@@ -52,19 +59,23 @@ async function processUpdatedMarkdownFiles() {
 
         console.log(`Read content from ${file}:`, body);
 
+        // Extracting the title from the front matter of the Markdown file
         const title = attributes.title;
         if (!title) {
             console.error(`Missing title in ${file}`);
-            continue;
+            continue; // Skipping file if title is not present
         }
 
+        // Checking if an article with the same title already exists on Dev.to
         const existingArticleId = await checkIfArticleExists(title, DEV_TO_API_KEY);
+        // If an existing article is found, update it with the new content
         if (existingArticleId) {
             await updateExistingArticle(existingArticleId, title, body);
         }
     }
 }
 
+// Initiating the process
 processUpdatedMarkdownFiles().then(() => {
     console.log('Updated articles processed');
 });
