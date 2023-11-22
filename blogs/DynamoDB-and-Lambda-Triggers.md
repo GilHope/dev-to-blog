@@ -4,6 +4,8 @@ title: "DynamoDB and Lambda Triggers"
 
 # Understanding DynamoDB Streams and Lambda Triggers
 
+TESTING
+
 ## Introduction to DynamoDB Streams
 
 DynamoDB Streams are a feature of AWS DynamoDB that provide a 24-hour rolling window of time-ordered changes to items in a DynamoDB table. These streams are essential for capturing and acting upon data modifications like inserts, updates, and deletes. They are configurable on a per-table basis and come with four distinct view types:
