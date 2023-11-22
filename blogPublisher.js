@@ -9,6 +9,7 @@ const DEV_TO_API_KEY = process.env.DEVTO_API_KEY;
 const BLOGS_DIR = './blogs';
 
 async function publishNewArticle(articleContent, title) {
+    console.log(`Attempting to publish article: ${title}`);
     // ... implementation of creating a new article on Dev.to ...
 }
 
