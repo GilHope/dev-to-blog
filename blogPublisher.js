@@ -37,6 +37,7 @@ async function processNewMarkdownFiles() {
             await publishNewArticle(body, title);
         } else {
             console.log(`Article already exists for title: ${title}. Skipping.`);
+        }
     }
 }
 
