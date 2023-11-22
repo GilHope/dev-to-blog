@@ -12,6 +12,20 @@ export function getMarkdownFiles(dir) {
 
 // Function to check if an article already exists on Dev.to
 export async function checkIfArticleExists(title, apiKey) {
-    // ... implementation to check if article exists ...
-    // Use fetch with apiKey to call Dev.to API and compare titles
+    const url = 'https://dev.to/api/articles/me';
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'api-key': apiKey
+            }
+        });
+        const articles = await response.json();
+
+        // Check if any article title matches the provided title
+        return articles.some(article => article.title === title);
+    } catch (error) {
+        console.error('Error checking if article exists:', error);
+        return false;
+    }
 }
