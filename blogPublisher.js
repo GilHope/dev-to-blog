@@ -18,6 +18,7 @@ async function processNewMarkdownFiles() {
     console.log(`Found ${markdownFiles.length} markdown files to process.`);
 
     for (const file of markdownFiles) {
+        console.log(`Processing file: ${file}`);
         const filePath = path.join(BLOGS_DIR, file);
         const content = fs.readFileSync(filePath, 'utf8');
         const { attributes, body } = frontMatter(content);
