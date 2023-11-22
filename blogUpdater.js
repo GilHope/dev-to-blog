@@ -1,4 +1,7 @@
 // blogUpdater.js
+// This script is responsible for updating existing blog articles on Dev.to.
+// It reads Markdown files from a specified directory, checks if corresponding
+// articles already exist on Dev.to, and updates them with the latest content.
 
 import fs from 'fs';
 import path from 'path'; 
@@ -9,7 +12,7 @@ import fetch from 'node-fetch';
 const DEV_TO_API_KEY = process.env.DEVTO_API_KEY;
 const BLOGS_DIR = './blogs'; 
 
-// Updates an existing article on Dev.to.
+// Publishes a new article to Dev.to.
 async function updateExistingArticle(articleId, title, content) {
     console.log(`Attempting to update article: ${title} with ID: ${articleId}`);
     const url = `https://dev.to/api/articles/${articleId}`;
@@ -31,7 +34,7 @@ async function updateExistingArticle(articleId, title, content) {
             })
         });
 
-        // Parsing the JSON response
+        // Parsing the JSON response from Dev.to API
         const data = await response.json();
         console.log('API Response:', data);
 

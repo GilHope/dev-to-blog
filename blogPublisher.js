@@ -1,4 +1,7 @@
 // blogPublisher.js
+// This script automates the process of publishing new blog posts to Dev.to.
+// It reads Markdown files from a specified directory, checks if corresponding
+// articles already exist on Dev.to, and publishes new ones if they don't.
 
 import fetch from 'node-fetch';
 import fs from 'fs';
