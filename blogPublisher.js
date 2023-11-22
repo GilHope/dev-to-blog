@@ -15,6 +15,7 @@ async function publishNewArticle(articleContent, title) {
 
 async function processNewMarkdownFiles() {
     const markdownFiles = getMarkdownFiles(BLOGS_DIR);
+    console.log(`Found ${markdownFiles.length} markdown files to process.`);
 
     for (const file of markdownFiles) {
         const filePath = path.join(BLOGS_DIR, file);
