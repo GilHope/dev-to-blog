@@ -10,8 +10,31 @@ const BLOGS_DIR = './blogs';
 
 async function publishNewArticle(articleContent, title) {
     console.log(`Attempting to publish article: ${title}`);
-    // ... implementation of creating a new article on Dev.to ...
+    const url = 'https://dev.to/api/articles';
+    
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'api-key': DEV_TO_API_KEY
+            },
+            body: JSON.stringify({ article: { title, body_markdown: articleContent } })
+        });
+
+        const data = await response.json();
+        console.log('API Response:', data);
+
+        if (!response.ok) {
+            throw new Error(`API Request Failed: ${response.status} ${response.statusText}`);
+        }
+
+        console.log(`Article published successfully: ${data.url}`);
+    } catch (error) {
+        console.error('Failed to publish article:', error);
+    }
 }
+
 
 async function processNewMarkdownFiles() {
     const markdownFiles = getMarkdownFiles(BLOGS_DIR);
