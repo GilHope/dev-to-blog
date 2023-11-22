@@ -1,5 +1,5 @@
 ---
-title: "Introduction to Yellow Lambo"
+title: "Introduction to Lambda"
 ---
 
 # Introduction to AWS Lambda
