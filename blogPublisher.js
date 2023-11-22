@@ -29,10 +29,14 @@ async function processNewMarkdownFiles() {
             continue;
         }
 
+        console.log(`Checking if article already exists for title: ${title}`);
         const existingArticleId = await checkIfArticleExists(title, DEV_TO_API_KEY);
+
         if (!existingArticleId) {
+            console.log(`No existing article found for title: ${title}. Publishing new article.`);
             await publishNewArticle(body, title);
-        }
+        } else {
+            console.log(`Article already exists for title: ${title}. Skipping.`);
     }
 }
 
