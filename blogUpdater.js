@@ -50,6 +50,8 @@ async function processUpdatedMarkdownFiles() {
         const content = fs.readFileSync(filePath, 'utf8');
         const { attributes, body } = frontMatter(content);
 
+        console.log(`Read content from ${file}:`, body);
+
         const title = attributes.title;
         if (!title) {
             console.error(`Missing title in ${file}`);
