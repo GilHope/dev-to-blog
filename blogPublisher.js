@@ -20,7 +20,13 @@ async function publishNewArticle(articleContent, title) {
                 'Content-Type': 'application/json',
                 'api-key': DEV_TO_API_KEY
             },
-            body: JSON.stringify({ article: { title, body_markdown: articleContent } })
+            body: JSON.stringify({ 
+                article: { 
+                    title, 
+                    body_markdown: articleContent,
+                    published: true
+                 } 
+            })
         });
 
         const data = await response.json();
