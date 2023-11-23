@@ -37,3 +37,4 @@ The project consists of two main scripts:
 - Implementing a more robust error handling system.
 - Adding a feature to manage and update post tags.
 - Improving the matching algorithm for existing posts to accommodate minor title variations.
+- Send announcement links to LinkedIn.
