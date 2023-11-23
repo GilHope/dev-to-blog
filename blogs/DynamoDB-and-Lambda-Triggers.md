@@ -1,7 +1,6 @@
 ---
 title: "DynamoDB and Lambda Triggers"
 ---
-# TESTING
 # Understanding DynamoDB Streams and Lambda Triggers
 
 ## Introduction to DynamoDB Streams
