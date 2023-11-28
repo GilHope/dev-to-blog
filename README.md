@@ -38,3 +38,5 @@ The project consists of two main scripts:
 - Adding a feature to manage and update post tags.
 - Improving the matching algorithm for existing posts to accommodate minor title variations.
 - Send announcement links to LinkedIn.
+
+# Currently working on implementing initial unit tests.
